@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: lecture_management_service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/learning_platform_lecture_mgmt
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  graphql:
+    graphiql:
+      enabled: true
+
+  liquibase:
+    enabled: true
+    change-log: classpath*:db/changelog/db.changelog-master.xml
