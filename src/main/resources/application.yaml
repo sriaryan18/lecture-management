@@ -7,6 +7,10 @@ spring:
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
+  security:
+    user:
+      name: test
+      password: test
 
   graphql:
     graphiql:
@@ -15,3 +19,15 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath*:db/changelog/db.changelog-master.xml
+
+api:
+  services:
+    auth:
+      baseUrl: 'http://localhost:8081'
+      endpoints:
+        getUserDetails:
+          endPointPath: '/get-user-details'
+          methodType: 'POST'
+
+
+
