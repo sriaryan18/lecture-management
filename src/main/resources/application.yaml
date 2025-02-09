@@ -25,9 +25,13 @@ api:
     auth:
       baseUrl: 'http://localhost:8081'
       endpoints:
-        getUserDetails:
-          endPointPath: '/get-user-details'
-          methodType: 'POST'
+        verifyToken:
+          endPointPath: '/auth/api/v1/verifyToken'
+          methodType: 'GET'
+jwt:
+  expiration: 3600
+  secret: "GibVa0MF2Wg29IVvY+kRFDf3xG6GVog9V5UocoUab6s="
 
 
+encryption-key: "e0ec288d28ef0b99d9df6bb51abe59fca34d276d8f9f170e3853c3db216ff085f"
 

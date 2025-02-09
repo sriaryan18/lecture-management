@@ -32,7 +32,8 @@ public class ApiClientConfig {
 
     private Map<String, ServiceConfigDto> services = new LinkedHashMap<>();
 
-    public <T> Mono<T> callService(String serviceName,
+    public <T> T callService(String serviceName,
+
                                     String endpointToCall,
                                     Map<String,String> params,
                                     Object payload,
@@ -45,20 +46,22 @@ public class ApiClientConfig {
         HttpMethod method = endpointConfig.getMethodType();
 
         String endpoint = endpointConfig.getEndPointPath();
+        if(params!= null && !params.isEmpty()){
+
         for (Map.Entry<String, String> entry : params.entrySet()) {
             endpoint = endpoint.replace("{" + entry.getKey() + "}", entry.getValue());
+        }
         }
 
 
         WebClient.RequestBodySpec requestBodySpec = webClient
                 .method(method)
-                .uri(configDto.getBaseUrl() + endpoint )
+                .uri(configDto.getBaseUrl()  +endpoint )
                 .headers(headers -> headers.setBearerAuth(token));
 
         if(payload != null){
-            requestBodySpec.bodyValue(payload);
-        }
-        return requestBodySpec.retrieve().bodyToMono(responseType);
+            requestBodySpec.bodyValue(payload);}
+        return requestBodySpec.retrieve().bodyToMono(responseType).block();
 
 
         }catch (RuntimeException e){
