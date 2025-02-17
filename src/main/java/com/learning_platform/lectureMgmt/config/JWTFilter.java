@@ -49,36 +49,38 @@ public class JWTFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String token = request.getHeader("Authorization");
-        if(token.contains("Bearer")){
-            token = token.replace("Bearer ","");
-
-        }
-//        Map<String,Object> userDetails = validateTokenFromAuthService(token);
-
-        Claims claims = jwtUtils.decodeJWTClaims(token);
-
-
-        String username = claims.getSubject();
-        List<String> roles = claims.get("roles",List.class);
-
-        List<GrantedAuthority> authorities = roles != null ?
-                roles.stream().map(role -> (GrantedAuthority) new SimpleGrantedAuthority(role))
-                        .toList()
-                : List.of();
-
-        if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
-            Map<String, Object> userDetails = new HashMap<>();
-            userDetails.put("username", username);
-            userDetails.put(AppConstants.SUBSCRIPTION, claims.get(AppConstants.SUBSCRIPTION));
-
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null,authorities );
-            authToken.setDetails(new WebAuthenticationDetailsSource()
-                    .buildDetails(request));
-            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//            authToken.setDetails(claims);
-            SecurityContextHolder.getContext().setAuthentication(authToken);
-        }
         filterChain.doFilter(request,response);
+        return;
+//        String token = request.getHeader("Authorization");
+//        if(token.contains("Bearer")){
+//            token = token.replace("Bearer ","");
+//
+//        }
+////        Map<String,Object> userDetails = validateTokenFromAuthService(token);
+//
+//        Claims claims = jwtUtils.decodeJWTClaims(token);
+//
+//
+//        String username = claims.getSubject();
+//        List<String> roles = claims.get("roles",List.class);
+//
+//        List<GrantedAuthority> authorities = roles != null ?
+//                roles.stream().map(role -> (GrantedAuthority) new SimpleGrantedAuthority(role))
+//                        .toList()
+//                : List.of();
+//
+//        if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
+//            Map<String, Object> userDetails = new HashMap<>();
+//            userDetails.put("username", username);
+//            userDetails.put(AppConstants.SUBSCRIPTION, claims.get(AppConstants.SUBSCRIPTION));
+//
+//            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null,authorities );
+//            authToken.setDetails(new WebAuthenticationDetailsSource()
+//                    .buildDetails(request));
+//            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+////            authToken.setDetails(claims);
+//            SecurityContextHolder.getContext().setAuthentication(authToken);
+//        }
+//        filterChain.doFilter(request,response);
     }
 }

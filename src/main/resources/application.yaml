@@ -19,6 +19,11 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath*:db/changelog/db.changelog-master.xml
+  jpa:
+    show-sql: true
+logging:
+  level:
+    root: DEBUG
 
 api:
   services:

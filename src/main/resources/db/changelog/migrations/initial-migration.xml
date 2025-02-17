@@ -21,8 +21,8 @@
            <column name="notes" type="text">
                
            </column>
-           <column name="testIds" type="text[]"/>
-           <column name="createdAt" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+           <column name="test_ids" type="text[]"/>
+           <column name="created_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
                <constraints nullable="false" />
            </column>
        </createTable>

@@ -1,0 +1,26 @@
+type Lecture {
+    id: ID!
+    instructorId: String!
+    classroomId: String!
+    topics: [String!]!
+    notes: String
+    testIds: [String]
+    createdAt: String!
+}
+
+type Query {
+    getLectureById(id: String!): Lecture
+    listLectures: [Lecture]
+    getLectureByInstructorId(id:ID):[Lecture]!
+
+}
+
+type Mutation{
+    createLecture( instructorId: String!,
+        classroomId: String!,
+        topics: [String!]!,
+        notes: String,
+        testIds: [String]):Lecture!
+
+    updateTopics(topics:[String],id:ID):Lecture!
+}
