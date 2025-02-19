@@ -3,19 +3,20 @@ package com.learning_platform.lectureMgmt.services.graphqlResolver;
 
 import com.learning_platform.lectureMgmt.models.LectureModel;
 import com.learning_platform.lectureMgmt.repos.LectureRepository;
-import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Component;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Component
-public class LectureResolver implements GraphQLQueryResolver {
+public class LectureQueryResolverService implements GraphQLQueryResolver {
 
     private final LectureRepository lectureRepository;
 
-    public LectureResolver(LectureRepository lectureRepository) {
+    public LectureQueryResolverService(LectureRepository lectureRepository) {
         this.lectureRepository = lectureRepository;
     }
 
@@ -25,8 +26,14 @@ public class LectureResolver implements GraphQLQueryResolver {
     }
 
     public List<LectureModel> listLectures(){
-        System.out.println("QUERY CALLED: " );
+
         return lectureRepository.findAll();
+    }
+
+
+    public List<LectureModel> getLecturesByTopic(String topic){
+        List<LectureModel> lectureModels =  lectureRepository.findByTopic(topic);
+        return lectureModels;
     }
 
 }

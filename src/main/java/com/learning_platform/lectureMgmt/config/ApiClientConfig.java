@@ -1,21 +1,15 @@
 package com.learning_platform.lectureMgmt.config;
 
 
-import com.learning_platform.lectureMgmt.Dtos.ServiceConfigDto;
-import jakarta.annotation.PostConstruct;
+import com.learning_platform.lectureMgmt.dtos.ServiceConfigDto;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

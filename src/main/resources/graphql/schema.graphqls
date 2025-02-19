@@ -12,6 +12,7 @@ type Query {
     getLectureById(id: String!): Lecture
     listLectures: [Lecture]
     getLectureByInstructorId(id:ID):[Lecture]!
+    getLectureByTopic(topic:String!):[Lecture]
 
 }
 
@@ -22,5 +23,5 @@ type Mutation{
         notes: String,
         testIds: [String]):Lecture!
 
-    updateTopics(topics:[String],id:ID):Lecture!
+    updateTopics(topics:[String]!,lectureId:String!):Lecture!
 }

@@ -1,4 +1,4 @@
-package com.learning_platform.lectureMgmt.Dtos;
+package com.learning_platform.lectureMgmt.dtos;
 
 
 import lombok.Builder;
@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;

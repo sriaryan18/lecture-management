@@ -1,4 +1,4 @@
-package com.learning_platform.lectureMgmt.Dtos;
+package com.learning_platform.lectureMgmt.dtos;
 
 import lombok.Builder;
 import lombok.Data;
