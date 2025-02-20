@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="classroom-setup" author="aryan">
+        <createTable tableName="classroom">
+            <column name="id" type="text">
+                <constraints primaryKey="true" primaryKeyName="classroom_pkey" unique="true"/>
+            </column>
+            <column name="instructor_ids" type="TEXT[]">
+                <constraints nullable="false"/>
+            </column>
+            <column name="student_ids" type="TEXT[]">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+
+            <column name="attendance" type="JSONB"/>
+
+            <column name="lectures" type="TEXT[]"/>
+
+            <column name="client_type" type="TEXT"/>
+
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="classroom_lecture_link" author="aryan">
+
+        <addForeignKeyConstraint baseTableName="lecture_management" baseColumnNames="classroom_id"
+                                 constraintName="fk_lecture_classroom" referencedTableName="classroom"
+                                 referencedColumnNames="id" onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="not-null-removal" author="aryan">
+        <addDefaultValue tableName="classroom" columnName="instructor_ids" defaultValueComputed="Array[]::text[]"/>
+        <addDefaultValue tableName="classroom" columnName="student_ids" defaultValueComputed="Array[]::text[]"/>
+
+    </changeSet>
+
+</databaseChangeLog>

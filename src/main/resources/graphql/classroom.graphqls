@@ -1,0 +1,16 @@
+type Classroom{
+    id:String!
+    studentIds:[String]
+    description:String
+    lectures:[Lecture]
+    clientType:String
+    instructorIds:[String]
+    attendance:[Attendance]
+}
+type Attendance{
+    date:String
+    students:[String]
+}
+
+
+

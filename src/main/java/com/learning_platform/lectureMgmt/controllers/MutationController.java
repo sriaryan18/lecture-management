@@ -1,31 +1,26 @@
 package com.learning_platform.lectureMgmt.controllers;
 
 
+import com.learning_platform.lectureMgmt.models.ClassroomModel;
 import com.learning_platform.lectureMgmt.models.LectureModel;
-import com.learning_platform.lectureMgmt.repos.LectureRepository;
+import com.learning_platform.lectureMgmt.services.graphqlResolver.ClassroomMutationResolver;
 import com.learning_platform.lectureMgmt.services.graphqlResolver.LectureMutationResolverService;
-import com.learning_platform.lectureMgmt.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
-import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
 @Controller
-public class LectureMutationResolver {
+public class MutationController {
 
     @Autowired
     LectureMutationResolverService lectureMutationResolverService;
+
+    @Autowired
+    ClassroomMutationResolver classroomMutationResolver;
 
     @MutationMapping
     public LectureModel createLecture(
@@ -52,6 +47,11 @@ public class LectureMutationResolver {
     public LectureModel updateTopics(@Argument String lectureId ,
                                      @Argument  List<String> topics){
         return lectureMutationResolverService.updateTopics(lectureId,topics);
+    }
+
+    @MutationMapping
+    public ClassroomModel createClassroom(@Argument String description){
+        return classroomMutationResolver.createClassroom(description);
     }
 
 
