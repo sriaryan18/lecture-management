@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -26,4 +27,20 @@ public class ClassroomMutationResolver {
         log.info("Saving classroom >> {}", entity.getId());
         return classroomRepository.save(entity);
     }
+
+
+
+    public ClassroomModel addStudentsInClassroom(String classroomId, List<String> studentIds) throws Exception {
+        Optional<ClassroomModel> model = classroomRepository.findById(classroomId);
+        if (model.isPresent()) {
+            Set<String> students = model.get().getStudentIds().stream().collect(Collectors.toSet());
+             studentIds.stream().forEach(students::add);
+             ClassroomModel classroomModel = model.get();
+             classroomModel.setStudentIds(students.stream().toList());
+             return classroomRepository.save(classroomModel);
+        }else {
+            throw new Exception("Classroom id not found");
+        }
+    }
+
 }

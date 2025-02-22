@@ -1,5 +1,6 @@
 package com.learning_platform.lectureMgmt.controllers;
 
+import com.learning_platform.lectureMgmt.models.ClassroomModel;
 import com.learning_platform.lectureMgmt.models.LectureModel;
 import com.learning_platform.lectureMgmt.services.graphqlResolver.LectureQueryResolverService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,6 @@ public class QueryController {
     public List<LectureModel> getLectureByTopic(@Argument  String topic){
         return lectureQueryResolverService.getLecturesByTopic(topic);
     }
+
 
 }

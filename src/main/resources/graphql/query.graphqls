@@ -12,7 +12,7 @@ type Query {
 }
 type Mutation{
     createClassroom(description:String!) : Classroom
-    addStudentsInClassRoom(studentsIds:[String]!):Classroom
+    addStudentsInClassRoom(studentIds:[String]!,classroomId:String!):Classroom
     addLectureInClassRoom(lectureId:String):Classroom
     addInstructor(instructorId:[String]):Classroom
     #    attendance

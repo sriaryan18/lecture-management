@@ -8,6 +8,7 @@ import com.learning_platform.lectureMgmt.services.graphqlResolver.LectureMutatio
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
 import java.time.Instant;
@@ -54,5 +55,14 @@ public class MutationController {
         return classroomMutationResolver.createClassroom(description);
     }
 
+    @MutationMapping
+    public ClassroomModel addStudentsInClassRoom(@Argument List<String> studentIds,@Argument String classroomId){
+        try {
+            return classroomMutationResolver.addStudentsInClassroom(classroomId,studentIds);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
