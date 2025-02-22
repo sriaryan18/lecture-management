@@ -26,6 +26,7 @@ public class ClassroomModel {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+
     @Column(columnDefinition = "text[] DEFAULT '{}'")
     private List<String> instructorIds = new ArrayList<>();
 
@@ -38,9 +39,9 @@ public class ClassroomModel {
     @JdbcTypeCode(SqlTypes.JSON)
     private JsonNode attendance;
 
-
-    @OneToMany(mappedBy = "classroomId",cascade = CascadeType.ALL , orphanRemoval = true)
-    private List<LectureModel> lectures = new ArrayList<>();
+    // TODO: handle this correctly
+//    @OneToMany(mappedBy = "classroomId",cascade = CascadeType.ALL , orphanRemoval = true)
+    private List<String> lectures = new ArrayList<>();
 
     private String clientType;
     private Instant createdAt;

@@ -2,7 +2,7 @@ type Classroom{
     id:String!
     studentIds:[String]
     description:String
-    lectures:[Lecture]
+    lectures:[String]
     clientType:String
     instructorIds:[String]
     attendance:[Attendance]

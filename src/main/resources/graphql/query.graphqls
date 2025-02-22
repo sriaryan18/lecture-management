@@ -1,8 +1,8 @@
 type Query {
     getAllClassrooms:[Classroom]
-    getClassroomById(id:ID):Classroom
+    getClassroomById(classroomId:ID):Classroom
     getClassroomsByInstructorId(instructorID:String):[Classroom]
-    getClassroomsByStudentIds(studentID:String!):[Classroom]
+    getClassroomsByStudentIds(studentId:String!):[Classroom]
     getAttendance(minDate:String!,maxDate:String): [Attendance]
 
     getLectureById(id: String!): Lecture
@@ -13,8 +13,8 @@ type Query {
 type Mutation{
     createClassroom(description:String!) : Classroom
     addStudentsInClassRoom(studentIds:[String]!,classroomId:String!):Classroom
-    addLectureInClassRoom(lectureId:String):Classroom
-    addInstructor(instructorId:[String]):Classroom
+    addLectureInClassRoom(lectureId:String!,classroomId:String!):Classroom
+    addInstructor(instructorId:String!,classroomId:String!):Classroom
     #    attendance
 
     createLecture( instructorId: String!,

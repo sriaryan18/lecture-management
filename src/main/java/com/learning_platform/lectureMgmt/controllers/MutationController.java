@@ -1,6 +1,7 @@
 package com.learning_platform.lectureMgmt.controllers;
 
 
+import com.learning_platform.lectureMgmt.exceptions.ResourceNotFoundException;
 import com.learning_platform.lectureMgmt.models.ClassroomModel;
 import com.learning_platform.lectureMgmt.models.LectureModel;
 import com.learning_platform.lectureMgmt.services.graphqlResolver.ClassroomMutationResolver;
@@ -8,7 +9,6 @@ import com.learning_platform.lectureMgmt.services.graphqlResolver.LectureMutatio
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
-import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
 import java.time.Instant;
@@ -61,8 +61,21 @@ public class MutationController {
             return classroomMutationResolver.addStudentsInClassroom(classroomId,studentIds);
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ResourceNotFoundException(classroomId,"Classroom");
         }
     }
+
+    @Deprecated
+    @MutationMapping
+    public ClassroomModel addLectureInClassRoom(@Argument String lectureId,@Argument String classroomId){
+        return classroomMutationResolver.addLectureInClassRoom(lectureId,classroomId);
+    }
+
+    @MutationMapping
+    public ClassroomModel addInstructor(@Argument String instructorId,@Argument String classroomId){
+        return classroomMutationResolver.addInstructor(instructorId,classroomId);
+    }
+
+
 
 }
