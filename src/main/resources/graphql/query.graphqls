@@ -1,0 +1,27 @@
+type Query {
+    getAllClassrooms:[Classroom]
+    getClassroomById(classroomId:ID):Classroom
+    getClassroomsByInstructorId(instructorID:String):[Classroom]
+    getClassroomsByStudentIds(studentId:String!):[Classroom]
+    getAttendance(minDate:String!,maxDate:String): [Attendance]
+
+    getLectureById(id: String!): Lecture
+    listLectures: [Lecture]
+    getLectureByInstructorId(id:ID):[Lecture]!
+    getLectureByTopic(topic:String!):[Lecture]
+}
+type Mutation{
+    createClassroom(description:String!) : Classroom
+    addStudentsInClassRoom(studentIds:[String]!,classroomId:String!):Classroom
+    addLectureInClassRoom(lectureId:String!,classroomId:String!):Classroom
+    addInstructor(instructorId:String!,classroomId:String!):Classroom
+    #    attendance
+
+    createLecture( instructorId: String!,
+        classroomId: String!,
+        topics: [String!]!,
+        notes: String,
+        testIds: [String]):Lecture!
+
+    updateTopics(topics:[String]!,lectureId:String!):Lecture!
+}

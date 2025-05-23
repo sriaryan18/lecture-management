@@ -1,0 +1,12 @@
+type Lecture {
+    id: ID!
+    instructorId: String!
+    classroomId: String!
+    topics: [String!]!
+    notes: String
+    testIds: [String]
+    createdAt: String!
+}
+
+
+
