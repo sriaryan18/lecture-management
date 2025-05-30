@@ -4,4 +4,5 @@ public class AppConstants {
     public static  final String AUTH_SERVICE="auth";
     public static  final String VERIFY_TOKEN="verifyToken";
     public static  final String SUBSCRIPTION = "subscription";
+    public static  final String CLAIM_USER = "user";
 }

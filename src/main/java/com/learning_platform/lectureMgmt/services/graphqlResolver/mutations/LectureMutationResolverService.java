@@ -1,7 +1,9 @@
-package com.learning_platform.lectureMgmt.services.graphqlResolver;
+package com.learning_platform.lectureMgmt.services.graphqlResolver.mutations;
 
 import com.learning_platform.lectureMgmt.models.LectureModel;
 import com.learning_platform.lectureMgmt.repos.LectureRepository;
+import com.learning_platform.lectureMgmt.services.graphqlResolver.queries.LectureQueryResolverService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

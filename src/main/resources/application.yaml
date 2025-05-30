@@ -17,7 +17,7 @@ spring:
       enabled: true
 
   liquibase:
-    enabled: true
+    enabled: false
     change-log: classpath*:db/changelog/db.changelog-master.xml
   jpa:
     show-sql: true

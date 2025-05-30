@@ -1,4 +1,4 @@
-package com.learning_platform.lectureMgmt.services.graphqlResolver;
+package com.learning_platform.lectureMgmt.services.graphqlResolver.queries;
 
 
 import com.learning_platform.lectureMgmt.models.LectureModel;

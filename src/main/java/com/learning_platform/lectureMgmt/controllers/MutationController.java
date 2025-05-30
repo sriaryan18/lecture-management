@@ -4,17 +4,20 @@ package com.learning_platform.lectureMgmt.controllers;
 import com.learning_platform.lectureMgmt.exceptions.ResourceNotFoundException;
 import com.learning_platform.lectureMgmt.models.ClassroomModel;
 import com.learning_platform.lectureMgmt.models.LectureModel;
-import com.learning_platform.lectureMgmt.services.graphqlResolver.ClassroomMutationResolver;
-import com.learning_platform.lectureMgmt.services.graphqlResolver.LectureMutationResolverService;
+import com.learning_platform.lectureMgmt.services.graphqlResolver.mutations.ClassroomMutationResolver;
+import com.learning_platform.lectureMgmt.services.graphqlResolver.mutations.LectureMutationResolverService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.time.Instant;
 import java.util.List;
 
 @Controller
+@CrossOrigin(origins = "*")
 public class MutationController {
 
     @Autowired
