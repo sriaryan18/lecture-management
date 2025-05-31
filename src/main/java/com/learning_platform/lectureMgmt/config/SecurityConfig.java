@@ -1,6 +1,5 @@
 package com.learning_platform.lectureMgmt.config;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +24,7 @@ import com.learning_platform.lectureMgmt.filters.JWTFilter;
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
-//
+    //
     @Autowired
     UserDetailsService userDetailsService;
 
@@ -35,25 +34,23 @@ public class SecurityConfig {
     @Bean
 
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-       return  http
-               
+        return http
+
                 .csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable())
-                .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-                        authorizationManagerRequestMatcherRegistry
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                      
-                        .anyRequest().authenticated())
-                .sessionManagement(httpSecuritySessionManagementConfigurer ->
-                        httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-               .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(
+                        authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
+                                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                                .anyRequest().authenticated())
+                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
 
     }
 
-
-
-
-    @Bean public AuthenticationProvider authenticationProvider(){
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
 
