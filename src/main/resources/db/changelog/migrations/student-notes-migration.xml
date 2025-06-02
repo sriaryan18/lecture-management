@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="student-notes-setup" author="aryan">
+        <createTable tableName="student_notes">
+            <column name="id" type="text">
+                <constraints primaryKey="true" primaryKeyName="student_notes_pkey" unique="true"/>
+            </column>
+            <column name="classroom_id" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lecture_id" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="student_id" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="notes" type="text"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+    </changeSet>
+
+    <changeSet id="student-notes-link" author="aryan">
+        <addForeignKeyConstraint baseTableName="student_notes" baseColumnNames="lecture_id"
+                                 constraintName="fk_student_notes_lecture" referencedTableName="lecture_management"
+                                 referencedColumnNames="id" onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="student_notes" baseColumnNames="classroom_id"
+                                 constraintName="fk_student_notes_classroom" referencedTableName="classroom"
+                                 referencedColumnNames="id" onDelete="CASCADE"/>
+        
+    </changeSet>
+    
+    <changeSet id="student-notes-unique-constraint" author="aryan">
+        <addUniqueConstraint 
+            tableName="student_notes"
+            columnNames="lecture_id, classroom_id"
+            constraintName="uk_student_notes_lecture_classroom"/>
+    </changeSet>
+  
+
+</databaseChangeLog>

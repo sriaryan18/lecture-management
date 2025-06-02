@@ -2,8 +2,10 @@ package com.learning_platform.lectureMgmt.controllers;
 
 import com.learning_platform.lectureMgmt.models.ClassroomModel;
 import com.learning_platform.lectureMgmt.models.LectureModel;
+import com.learning_platform.lectureMgmt.models.StudentNotesModel;
 import com.learning_platform.lectureMgmt.services.graphqlResolver.queries.ClassroomQueryResolver;
 import com.learning_platform.lectureMgmt.services.graphqlResolver.queries.LectureQueryResolverService;
+import com.learning_platform.lectureMgmt.services.graphqlResolver.queries.StudentNotesQueryResolver;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -21,50 +23,52 @@ public class QueryController {
     @Autowired
     LectureQueryResolverService lectureQueryResolverService;
 
-
     @Autowired
     ClassroomQueryResolver classroomQueryResolver;
 
-//    @PreAuthorize("hasRole('PRIVATE')") //
-//    @GetMapping("/")
-//    public String test(){
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        System.out.println("AUTHENTICATION" + authentication.toString());
-//        return "TEST SUCCESSFULL" + authentication.toString();
-//    }
+    @Autowired
+    StudentNotesQueryResolver studentNotesQueryResolver;
 
     @QueryMapping
-    public List<LectureModel> listLectures(){
+    public List<LectureModel> listLectures() {
         return lectureQueryResolverService.listLectures();
     }
+
     @QueryMapping
-    public LectureModel getLectureById(@Argument String id){
+    public LectureModel getLectureById(@Argument String id) {
         return lectureQueryResolverService.getLectureById(id);
     }
 
     @QueryMapping
-    public List<LectureModel> getLectureByTopic(@Argument  String topic){
+    public List<LectureModel> getLectureByTopic(@Argument String topic) {
         return lectureQueryResolverService.getLecturesByTopic(topic);
     }
 
     @QueryMapping
-    public List<ClassroomModel> getAllClassrooms(){
+    public List<ClassroomModel> getAllClassrooms() {
         return classroomQueryResolver.getAllClassrooms();
     }
+
     @QueryMapping
-    public ClassroomModel getClassroomById(@Argument String classroomId){
+    public ClassroomModel getClassroomById(@Argument String classroomId) {
         return classroomQueryResolver.getClassroomById(classroomId);
     }
 
     @QueryMapping
-    public ClassroomModel getClassroomsByInstructorId(@Argument String instructorId){
+    public ClassroomModel getClassroomsByInstructorId(@Argument String instructorId) {
         return classroomQueryResolver.getClassroomsByInstructorId(instructorId);
     }
 
     @QueryMapping
     @PreAuthorize("@auth.isSelf(#studentId)")
-    public List<ClassroomModel> getClassroomsByStudentIds(@Argument String studentId){
-          return   classroomQueryResolver.getClassroomsByStudentIds(studentId);
+    public List<ClassroomModel> getClassroomsByStudentIds(@Argument String studentId) {
+        return classroomQueryResolver.getClassroomsByStudentIds(studentId);
+    }
+
+    @QueryMapping
+    // @PreAuthorize("@auth.isSelf(#studentId)")
+    public StudentNotesModel getStudentNotes(@Argument String lectureId, @Argument String studentId, @Argument String classroomId) {
+        return studentNotesQueryResolver.getStudentNotes(lectureId, studentId, classroomId);
     }
 
 }

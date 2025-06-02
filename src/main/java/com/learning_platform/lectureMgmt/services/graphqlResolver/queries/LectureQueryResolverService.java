@@ -21,7 +21,6 @@ public class LectureQueryResolverService implements GraphQLQueryResolver {
     }
 
     public LectureModel getLectureById(String id) {
-        System.out.println("QUERY CALLED: " + id);
         return lectureRepository.findById(id).orElse(null);
     }
 

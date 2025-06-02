@@ -1,0 +1,8 @@
+type StudentNotes {
+  id: ID!
+  lectureId: String!
+  studentId: String!
+  notes: String!
+  createdAt: String!
+  updatedAt: String!
+}
