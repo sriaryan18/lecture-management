@@ -26,6 +26,7 @@ public class StudentNotesMutationResolver {
             StudentNotesModel updatedStudentNotesModel = studentNotesModel.get();
             updatedStudentNotesModel.setNotes(notes);
             updatedStudentNotesModel.setUpdatedAt(Instant.now());
+            
             return studentNotesRepository.save(updatedStudentNotesModel);
         } else {
             StudentNotesModel newStudentNotesModel = StudentNotesModel.builder()
