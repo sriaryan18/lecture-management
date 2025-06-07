@@ -8,15 +8,15 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface LectureRepository extends JpaRepository<LectureModel,String> {
+public interface LectureRepository extends JpaRepository<LectureModel, String> {
 
     Optional<LectureModel> findById(String id);
+
     Optional<List<LectureModel>> findByInstructorId(String instructorId);
 
     @Query(value = "SELECT * FROM lecture_management lm WHERE array_to_string(lm.topics,',') like %:topic%", nativeQuery = true)
     List<LectureModel> findByTopic(@Param("topic") String topic);
 
-//List<LectureModel> findByTopicsContaining(String topic);
-
+    // List<LectureModel> findByTopicsContaining(String topic);
 
 }

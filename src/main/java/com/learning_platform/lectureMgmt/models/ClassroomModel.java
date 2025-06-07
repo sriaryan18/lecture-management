@@ -28,9 +28,11 @@ public class ClassroomModel {
 
 
     @Column(columnDefinition = "text[] DEFAULT '{}'")
+    @Builder.Default
     private List<String> instructorIds = new ArrayList<>();
 
     @Column(columnDefinition = "text[] DEFAULT '{}'")
+    @Builder.Default
     private List<String> studentIds = new ArrayList<>();
 
     private String description;
@@ -41,6 +43,7 @@ public class ClassroomModel {
 
     // TODO: handle this correctly
 //    @OneToMany(mappedBy = "classroomId",cascade = CascadeType.ALL , orphanRemoval = true)
+    @Builder.Default
     private List<String> lectures = new ArrayList<>();
 
     private String clientType;

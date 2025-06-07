@@ -12,7 +12,6 @@ import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.time.Instant;
 import java.util.List;

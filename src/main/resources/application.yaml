@@ -24,7 +24,7 @@ spring:
     show-sql: true
 logging:
   level:
-    root: INFO
+    root: DEBUG
 
 api:
   services:
@@ -40,4 +40,15 @@ jwt:
 
 
 encryption-key: "e0ec288d28ef0b99d9df6bb51abe59fca34d276d8f9f170e3853c3db216ff085f"
+
+common-utils:
+  security:
+    permit-all: false
+    unprotected-endpoints:
+      - "/auth/api/v1/login"
+      - "/auth/api/v1/signup"
+      - "/auth/api/v1/test2"
+      - "/actuator/**"
+      - "/debug/**"
+
 

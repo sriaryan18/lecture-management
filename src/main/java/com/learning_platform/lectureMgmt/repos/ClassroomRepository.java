@@ -8,13 +8,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface ClassroomRepository extends JpaRepository<ClassroomModel,String> {
-
+public interface ClassroomRepository extends JpaRepository<ClassroomModel, String> {
 
     @Query(value = "SELECT * FROM classroom cr WHERE :instructor_id = ANY(cr.instructor_ids)", nativeQuery = true)
-    Optional<ClassroomModel> findClassroomsByInstructorId(@Param("instructor_ids") String instructorId);
+    Optional<ClassroomModel> findClassroomsByInstructorId(@Param("instructor_id") String instructorId);
 
-    @Query(value = "SELECT * FROM classroom cr where :studentId = ANY(cr.student_ids)",nativeQuery = true)
+    @Query(value = "SELECT * FROM classroom cr where :studentId = ANY(cr.student_ids)", nativeQuery = true)
     Optional<List<ClassroomModel>> findClassroomByStudentId(@Param("studentId") String studentId);
 
 }

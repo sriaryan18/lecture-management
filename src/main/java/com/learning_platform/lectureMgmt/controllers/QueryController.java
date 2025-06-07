@@ -66,7 +66,7 @@ public class QueryController {
     }
 
     @QueryMapping
-    // @PreAuthorize("@auth.isSelf(#studentId)")
+    @PreAuthorize("@auth.isSelf(#studentId)")
     public StudentNotesModel getStudentNotes(@Argument String lectureId, @Argument String studentId, @Argument String classroomId) {
         return studentNotesQueryResolver.getStudentNotes(lectureId, studentId, classroomId);
     }
