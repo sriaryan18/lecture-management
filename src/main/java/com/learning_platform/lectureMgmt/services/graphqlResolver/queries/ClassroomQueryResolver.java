@@ -35,4 +35,11 @@ public class ClassroomQueryResolver {
                 .findClassroomByStudentId(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException(studentId, "studentId"));
     }
+
+    public String getInviteLink(String classroomId) {
+        return classroomRepository.findById(classroomId)
+                .orElseThrow(() -> new ResourceNotFoundException(classroomId, "classroomId"))
+                .getInviteLink();
+    }
+
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="classroom-invite-link" author="aryan">
+        <addColumn tableName="classroom">
+            <column name="invite_link" type="TEXT" defaultValue="NULL" />
+            <column name="invite_link_expiry" type="TIMESTAMP" defaultValue="NULL" />
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

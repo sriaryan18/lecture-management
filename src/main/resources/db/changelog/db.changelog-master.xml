@@ -9,4 +9,5 @@
   <include file="db/changelog/migrations/student-notes-migration.xml"/>
   <include file="db/changelog/migrations/classroom-new-fields_2.xml"/>
   <include file="db/changelog/migrations/lecture-new-fields_2.xml"/>
+  <include file="db/changelog/migrations/classroom-invite-link.xml"/>
 </databaseChangeLog>  

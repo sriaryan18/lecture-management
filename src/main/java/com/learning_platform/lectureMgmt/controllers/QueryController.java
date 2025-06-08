@@ -71,4 +71,9 @@ public class QueryController {
         return studentNotesQueryResolver.getStudentNotes(lectureId, studentId, classroomId);
     }
 
+    @QueryMapping
+    public String getInviteLink(@Argument String classroomId) {
+        return classroomQueryResolver.getInviteLink(classroomId);
+    }
+
 }

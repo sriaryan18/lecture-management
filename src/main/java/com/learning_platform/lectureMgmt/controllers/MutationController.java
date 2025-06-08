@@ -2,6 +2,7 @@ package com.learning_platform.lectureMgmt.controllers;
 
 import com.learning_platform.lectureMgmt.exceptions.ResourceNotFoundException;
 import com.learning_platform.lectureMgmt.models.ClassroomModel;
+import com.learning_platform.lectureMgmt.models.InviteLink;
 import com.learning_platform.lectureMgmt.models.LectureModel;
 import com.learning_platform.lectureMgmt.models.StudentNotesModel;
 import com.learning_platform.lectureMgmt.services.graphqlResolver.mutations.ClassroomMutationResolver;
@@ -10,6 +11,7 @@ import com.learning_platform.lectureMgmt.services.graphqlResolver.mutations.Stud
 
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -62,7 +64,8 @@ public class MutationController {
     }
 
     @MutationMapping
-    public ClassroomModel createClassroom(@Argument String description, @Argument String classroomName, @Argument List<String> instructorIds) {
+    public ClassroomModel createClassroom(@Argument String description, @Argument String classroomName,
+            @Argument List<String> instructorIds) {
         return classroomMutationResolver.createClassroom(description, classroomName, instructorIds);
     }
 
@@ -88,10 +91,21 @@ public class MutationController {
     }
 
     @MutationMapping
-    // @PreAuthorize("@auth.self(#studentId)")
+    @PreAuthorize("@auth.self(#studentId)")
     public StudentNotesModel updateStudentNotes(@Argument String lectureId, @Argument String studentId,
             @Argument String classroomId, @Argument String notes) {
         return studentNotesMutationResolver.updateStudentNotes(lectureId, studentId, classroomId, notes);
     }
+
+    @MutationMapping
+    public InviteLink createInviteLink(@Argument String classroomId, @Argument String expiry) {
+        String inviteString = classroomMutationResolver.createInviteLink(classroomId, expiry);
+        return new InviteLink(inviteString, expiry);
+    }
+    @MutationMapping
+    // @PreAuthorize("@auth.isSelf(#studentId)")
+    public List<ClassroomModel> joinClassroom(@Argument String inviteLink, @Argument String studentId) {
+        return classroomMutationResolver.joinClassroom(inviteLink,studentId);
+    }   
 
 }

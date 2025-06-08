@@ -1,6 +1,5 @@
 package com.learning_platform.lectureMgmt.models;
 
-
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -42,11 +41,12 @@ public class ClassroomModel {
     @JdbcTypeCode(SqlTypes.JSON)
     private JsonNode attendance;
 
-    // TODO: handle this correctly
-//    @OneToMany(mappedBy = "classroomId",cascade = CascadeType.ALL , orphanRemoval = true)
     @Builder.Default
     private List<String> lectures = new ArrayList<>();
 
     private String clientType;
     private Instant createdAt;
+
+    private String inviteLink;
+    private Instant inviteLinkExpiry;
 }

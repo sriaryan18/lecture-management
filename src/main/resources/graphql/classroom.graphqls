@@ -7,6 +7,8 @@ type Classroom {
   instructorIds: [String]
   attendance: [Attendance]
   classroomName: String
+  inviteLink: String
+  inviteLinkExpiry: String
 }
 type Attendance {
   date: String

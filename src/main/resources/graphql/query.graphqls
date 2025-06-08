@@ -1,24 +1,36 @@
+type InviteLink {
+  link: String!
+  expiry: String!
+}
+
 type Query {
   getAllClassrooms: [Classroom]
   getClassroomById(classroomId: ID): Classroom
   getClassroomsByInstructorId(instructorID: String): [Classroom]
   getClassroomsByStudentIds(studentId: String!): [Classroom]
   getAttendance(minDate: String!, maxDate: String): [Attendance]
-
   getLectureById(id: String!): Lecture
   listLectures: [Lecture]
   getLectureByInstructorId(id: ID): [Lecture]!
   getLectureByTopic(topic: String!): [Lecture]
-
-  getStudentNotes(lectureId: String!, studentId: String!, classroomId: String!): StudentNotes
+  getStudentNotes(
+    lectureId: String!
+    studentId: String!
+    classroomId: String!
+  ): StudentNotes
+  getInviteLink(classroomId: String!): InviteLink
 }
 type Mutation {
-  createClassroom(description: String!, classroomName: String!, instructorIds: [String]): Classroom
+  createClassroom(
+    description: String!
+    classroomName: String!
+    instructorIds: [String]
+  ): Classroom
   addStudentsInClassRoom(studentIds: [String]!, classroomId: String!): Classroom
   addLectureInClassRoom(lectureId: String!, classroomId: String!): Classroom
   addInstructor(instructorId: String!, classroomId: String!): Classroom
   #    attendance
-
+  createInviteLink(classroomId: String!, expiry: String!): InviteLink
   createLecture(
     instructorId: String!
     classroomId: String!
@@ -26,16 +38,15 @@ type Mutation {
     notes: String
     testIds: [String]
     lectureName: String!
-    lectureDescription: String! 
+    lectureDescription: String!
   ): Lecture!
-
   updateTopics(topics: [String]!, lectureId: String!): Lecture!
-
   updateStudentNotes(
     lectureId: String!
     studentId: String!
     notes: String!
     classroomId: String!
   ): StudentNotes!
-}
 
+  joinClassroom(inviteLink: String!, studentId: String!): [Classroom]
+}
