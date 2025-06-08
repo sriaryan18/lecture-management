@@ -6,6 +6,7 @@ type Classroom {
   clientType: String
   instructorIds: [String]
   attendance: [Attendance]
+  classroomName: String
 }
 type Attendance {
   date: String

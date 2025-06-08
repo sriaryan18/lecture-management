@@ -3,6 +3,7 @@ package com.learning_platform.lectureMgmt.models;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -23,20 +24,22 @@ public class LectureModel {
     private String id;
 
 
+    private String lectureName;
+
+    private String lectureDescription;
+
     private String classroomId;
 
-
-    private Instant createdAt;
-
+    @Builder.Default
+    private Instant createdAt = Instant.now();
 
     private String instructorId;
 
-    private String notes;
+    @Builder.Default
+    private String notes = "";
 
-
-    private List<String> testIds;
+    @Builder.Default
+    private List<String> testIds = new ArrayList<>();
 
     private List<String> topics;
 }
-
-

@@ -26,6 +26,7 @@ public class ClassroomModel {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    private String classroomName;
 
     @Column(columnDefinition = "text[] DEFAULT '{}'")
     @Builder.Default

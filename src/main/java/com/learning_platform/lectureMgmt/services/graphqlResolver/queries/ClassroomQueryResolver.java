@@ -15,26 +15,24 @@ public class ClassroomQueryResolver {
     @Autowired
     ClassroomRepository classroomRepository;
 
-    public List<ClassroomModel> getAllClassrooms(){
+    public List<ClassroomModel> getAllClassrooms() {
         return classroomRepository.findAll();
     }
 
-    public ClassroomModel getClassroomById(String classroomId){
-        return classroomRepository.
-                findById(classroomId)
-                .orElseThrow( ()->  new ResourceNotFoundException(classroomId,"classroom"));
+    public ClassroomModel getClassroomById(String classroomId) {
+        return classroomRepository.findById(classroomId)
+                .orElseThrow(() -> new ResourceNotFoundException(classroomId, "classroom"));
     }
 
-
-    public ClassroomModel getClassroomsByInstructorId(String instrcutorId){
-       return classroomRepository
+    public List<ClassroomModel> getClassroomsByInstructorId(String instrcutorId) {
+        return classroomRepository
                 .findClassroomsByInstructorId(instrcutorId)
-               .orElseThrow(() ->  new ResourceNotFoundException(instrcutorId,"instrcutorId"));
-
+                .orElseThrow(() -> new ResourceNotFoundException(instrcutorId, "instrcutorId"));
     }
-    public List<ClassroomModel> getClassroomsByStudentIds(String studentId){
-       return  classroomRepository
+
+    public List<ClassroomModel> getClassroomsByStudentIds(String studentId) {
+        return classroomRepository
                 .findClassroomByStudentId(studentId)
-                .orElseThrow(() -> new ResourceNotFoundException(studentId,"studentId"));
+                .orElseThrow(() -> new ResourceNotFoundException(studentId, "studentId"));
     }
 }

@@ -39,13 +39,17 @@ public class MutationController {
             @Argument String classroomId,
             @Argument List<String> topics,
             @Argument String notes,
-            @Argument List<String> testIds) {
+            @Argument List<String> testIds,
+            @Argument String lectureName,
+            @Argument String lectureDescription) {
         LectureModel lectureModel = LectureModel.builder()
                 .createdAt(Instant.now())
                 .classroomId(classroomId)
                 .instructorId(instructorId)
                 .topics(topics)
                 .notes(notes)
+                .lectureName(lectureName)
+                .lectureDescription(lectureDescription)
                 .build();
 
         return lectureMutationResolverService.createLecture(lectureModel);
@@ -58,8 +62,8 @@ public class MutationController {
     }
 
     @MutationMapping
-    public ClassroomModel createClassroom(@Argument String description) {
-        return classroomMutationResolver.createClassroom(description);
+    public ClassroomModel createClassroom(@Argument String description, @Argument String classroomName, @Argument List<String> instructorIds) {
+        return classroomMutationResolver.createClassroom(description, classroomName, instructorIds);
     }
 
     @MutationMapping

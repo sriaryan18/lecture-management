@@ -13,7 +13,7 @@ type Query {
   getStudentNotes(lectureId: String!, studentId: String!, classroomId: String!): StudentNotes
 }
 type Mutation {
-  createClassroom(description: String!): Classroom
+  createClassroom(description: String!, classroomName: String!, instructorIds: [String]): Classroom
   addStudentsInClassRoom(studentIds: [String]!, classroomId: String!): Classroom
   addLectureInClassRoom(lectureId: String!, classroomId: String!): Classroom
   addInstructor(instructorId: String!, classroomId: String!): Classroom
@@ -25,6 +25,8 @@ type Mutation {
     topics: [String!]!
     notes: String
     testIds: [String]
+    lectureName: String!
+    lectureDescription: String! 
   ): Lecture!
 
   updateTopics(topics: [String]!, lectureId: String!): Lecture!
@@ -36,3 +38,4 @@ type Mutation {
     classroomId: String!
   ): StudentNotes!
 }
+

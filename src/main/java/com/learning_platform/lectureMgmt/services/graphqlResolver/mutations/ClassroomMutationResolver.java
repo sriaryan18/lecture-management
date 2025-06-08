@@ -18,15 +18,21 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ClassroomMutationResolver {
 
-    @Autowired
-    ClassroomRepository classroomRepository;
+    private final ClassroomRepository classroomRepository;
+    private final LectureRepository lectureRepository;
 
-    @Autowired
-    LectureRepository lectureRepository;
+    public ClassroomMutationResolver(ClassroomRepository classroomRepository, LectureRepository lectureRepository) {
+        this.classroomRepository = classroomRepository;
+        this.lectureRepository = lectureRepository;
+    }
 
-    public ClassroomModel createClassroom(String description){
+    public ClassroomModel createClassroom(String description, String classroomName, List<String> instructorIds){
+        if(instructorIds == null){
+            instructorIds = new ArrayList<>();
+        }
         ClassroomModel entity = ClassroomModel.builder().description(description)
-                .instructorIds(new ArrayList<>())
+                .classroomName(classroomName)
+                .instructorIds(instructorIds)
                 .studentIds(new ArrayList<>())
                 .createdAt(Instant.now())
                 .build();

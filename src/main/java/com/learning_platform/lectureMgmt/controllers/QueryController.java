@@ -55,8 +55,8 @@ public class QueryController {
     }
 
     @QueryMapping
-    public ClassroomModel getClassroomsByInstructorId(@Argument String instructorId) {
-        return classroomQueryResolver.getClassroomsByInstructorId(instructorId);
+    public List<ClassroomModel> getClassroomsByInstructorId(@Argument String instructorID) {
+        return classroomQueryResolver.getClassroomsByInstructorId(instructorID);
     }
 
     @QueryMapping

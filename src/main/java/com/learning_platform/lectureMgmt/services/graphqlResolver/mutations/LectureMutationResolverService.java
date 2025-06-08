@@ -1,7 +1,10 @@
 package com.learning_platform.lectureMgmt.services.graphqlResolver.mutations;
 
 import com.learning_platform.lectureMgmt.models.LectureModel;
+import com.learning_platform.lectureMgmt.exceptions.ResourceNotFoundException;
+import com.learning_platform.lectureMgmt.models.ClassroomModel;
 import com.learning_platform.lectureMgmt.models.StudentNotesModel;
+import com.learning_platform.lectureMgmt.repos.ClassroomRepository;
 import com.learning_platform.lectureMgmt.repos.LectureRepository;
 import com.learning_platform.lectureMgmt.repos.StudentNotesRepository;
 import com.learning_platform.lectureMgmt.services.graphqlResolver.queries.LectureQueryResolverService;
@@ -29,23 +32,29 @@ public class LectureMutationResolverService {
     @Autowired
     StudentNotesRepository studentNotesRepository;
 
+    @Autowired
+    ClassroomRepository classroomRepository;
 
-    public LectureModel createLecture(LectureModel lectureModel){
-        return lectureRepository.save(lectureModel);
+    public LectureModel createLecture(LectureModel lectureModel) {
+        LectureModel savedLecture = lectureRepository.save(lectureModel);
+        ClassroomModel classroomModel = classroomRepository.findById(lectureModel.getClassroomId())
+                .orElseThrow(() -> new ResourceNotFoundException(lectureModel.getClassroomId(), "classroom"));
+
+        classroomModel.getLectures().add(savedLecture.getId());
+        classroomRepository.save(classroomModel);
+        return savedLecture;
     }
 
-    public LectureModel updateTopics(String lectureId, List<String> topic){
+    public LectureModel updateTopics(String lectureId, List<String> topic) {
         // TODO: check if the lecture is created by the same user
         LectureModel lectureModel = lectureQueryResolverService.getLectureById(lectureId);
         List<String> existingTopics = lectureModel.getTopics();
         Set<String> uniqueTopics = new HashSet<>();
         topic.stream().forEach(t -> uniqueTopics.add(t));
-        existingTopics.stream().forEach(t-> uniqueTopics.add(t));
+        existingTopics.stream().forEach(t -> uniqueTopics.add(t));
         lectureModel.setTopics(uniqueTopics.stream().toList());
         return lectureRepository.save(lectureModel);
 
     }
-
-   
 
 }

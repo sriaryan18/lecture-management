@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface ClassroomRepository extends JpaRepository<ClassroomModel, String> {
 
     @Query(value = "SELECT * FROM classroom cr WHERE :instructor_id = ANY(cr.instructor_ids)", nativeQuery = true)
-    Optional<ClassroomModel> findClassroomsByInstructorId(@Param("instructor_id") String instructorId);
+    Optional<List<ClassroomModel>> findClassroomsByInstructorId(@Param("instructor_id") String instructorId);
 
     @Query(value = "SELECT * FROM classroom cr where :studentId = ANY(cr.student_ids)", nativeQuery = true)
     Optional<List<ClassroomModel>> findClassroomByStudentId(@Param("studentId") String studentId);

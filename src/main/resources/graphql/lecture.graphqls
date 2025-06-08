@@ -6,4 +6,6 @@ type Lecture {
   notes: String
   testIds: [String]
   createdAt: String!
+  lectureName: String!
+  lectureDescription: String!
 }
