@@ -10,4 +10,6 @@
   <include file="db/changelog/migrations/classroom-new-fields_2.xml"/>
   <include file="db/changelog/migrations/lecture-new-fields_2.xml"/>
   <include file="db/changelog/migrations/classroom-invite-link.xml"/>
+  <include file="db/changelog/migrations/classroom-organization_1.xml"/>
+  <include file="db/changelog/migrations/class-code-unique.xml"/>
 </databaseChangeLog>  

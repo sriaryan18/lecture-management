@@ -9,6 +9,8 @@ type Classroom {
   classroomName: String
   inviteLink: String
   inviteLinkExpiry: String
+  organizationId: String
+  classroomCode: String
 }
 type Attendance {
   date: String

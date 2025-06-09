@@ -7,7 +7,7 @@ import com.learning_platform.lectureMgmt.models.LectureModel;
 import com.learning_platform.lectureMgmt.repos.ClassroomRepository;
 import com.learning_platform.lectureMgmt.repos.LectureRepository;
 import com.learning_platform.lectureMgmt.services.graphqlResolver.queries.ClassroomQueryResolver;
-import com.learning_platform.lectureMgmt.utils.ClassroomInvitation;
+import com.learning_platform.lectureMgmt.utils.ClassroomUtils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +32,19 @@ public class ClassroomMutationResolver {
         this.classroomQueryResolver = classroomQueryResolver;
     }
 
-    public ClassroomModel createClassroom(String description, String classroomName, List<String> instructorIds) {
+    public ClassroomModel createClassroom(String description, String classroomName, List<String> instructorIds,
+            String organizationId) {
         if (instructorIds == null) {
             instructorIds = new ArrayList<>();
         }
+        String classroomCode = ClassroomUtils.generateClassroomCode(organizationId);
         ClassroomModel entity = ClassroomModel.builder().description(description)
                 .classroomName(classroomName)
                 .instructorIds(instructorIds)
                 .studentIds(new ArrayList<>())
                 .createdAt(Instant.now())
+                .organizationId(organizationId)
+                .classroomCode(classroomCode)
                 .build();
         log.info("Saving classroom >> {}", entity.getId());
         return classroomRepository.save(entity);
@@ -98,14 +102,21 @@ public class ClassroomMutationResolver {
             throw new ResourceNotFoundException(classroomId, "classroom");
         }
         // TODO: add client type and organization id to the invite link
-        String inviteLink = ClassroomInvitation.generateInviteLink(classroomId, expiry);
+        String inviteLink = ClassroomUtils.generateInviteLink(classroomId, expiry);
         classroomModel.get().setInviteLink(inviteLink);
         classroomModel.get().setInviteLinkExpiry(Instant.parse(expiry));
         return classroomRepository.save(classroomModel.get()).getInviteLink();
     }
 
+    private void addStudentToClassroom(ClassroomModel classroom, String studentId) {
+        Set<String> students = classroom.getStudentIds().stream().collect(Collectors.toSet());
+        students.add(studentId);
+        classroom.setStudentIds(students.stream().toList());
+        classroomRepository.save(classroom);
+    }
+
     public List<ClassroomModel> joinClassroom(String inviteLink, String studentId) {
-        Map<String, String> decodedInviteLink = ClassroomInvitation.decodeInviteLink(inviteLink);
+        Map<String, String> decodedInviteLink = ClassroomUtils.decodeInviteLink(inviteLink);
         String classroomId = decodedInviteLink.get("classroomId");
         String expiry = decodedInviteLink.get("expiry");
         if (Instant.parse(expiry).isBefore(Instant.now())) {
@@ -116,10 +127,20 @@ public class ClassroomMutationResolver {
             throw new ResourceNotFoundException(classroomId, "classroom");
         }
         ClassroomModel classroom = classroomModel.get();
-        classroom.getStudentIds().add(studentId);
-        classroomRepository.save(classroom);
+        this.addStudentToClassroom(classroom, studentId);
         return classroomQueryResolver.getClassroomsByStudentIds(studentId);
 
+    }
+
+    public List<ClassroomModel> joinClassroomByCode(String classroomCode, String studentId, String organizationId) {
+        Optional<ClassroomModel> classroomModel = classroomRepository
+                .findByClassroomCodeAndOrganizationId(classroomCode, organizationId);
+        if (classroomModel.isEmpty()) {
+            throw new ResourceNotFoundException(classroomCode, "classroom");
+        }
+        ClassroomModel classroom = classroomModel.get();
+        this.addStudentToClassroom(classroom, studentId);
+        return classroomQueryResolver.getClassroomsByStudentIds(studentId);
     }
 
 }

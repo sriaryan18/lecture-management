@@ -49,4 +49,7 @@ public class ClassroomModel {
 
     private String inviteLink;
     private Instant inviteLinkExpiry;
+
+    private String organizationId;
+    private String classroomCode;
 }

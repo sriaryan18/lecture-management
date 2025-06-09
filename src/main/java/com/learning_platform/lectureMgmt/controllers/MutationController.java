@@ -64,9 +64,10 @@ public class MutationController {
     }
 
     @MutationMapping
+    @PreAuthorize("@auth.isSameOrganization(#organizationId)")
     public ClassroomModel createClassroom(@Argument String description, @Argument String classroomName,
-            @Argument List<String> instructorIds) {
-        return classroomMutationResolver.createClassroom(description, classroomName, instructorIds);
+            @Argument List<String> instructorIds, @Argument String organizationId) {
+        return classroomMutationResolver.createClassroom(description, classroomName, instructorIds, organizationId);
     }
 
     @MutationMapping
@@ -102,10 +103,17 @@ public class MutationController {
         String inviteString = classroomMutationResolver.createInviteLink(classroomId, expiry);
         return new InviteLink(inviteString, expiry);
     }
+
     @MutationMapping
-    // @PreAuthorize("@auth.isSelf(#studentId)")
+    @PreAuthorize("@auth.isSelf(#studentId)")
     public List<ClassroomModel> joinClassroom(@Argument String inviteLink, @Argument String studentId) {
-        return classroomMutationResolver.joinClassroom(inviteLink,studentId);
-    }   
+        return classroomMutationResolver.joinClassroom(inviteLink, studentId);
+    }
+
+    @MutationMapping
+    @PreAuthorize("@auth.isSameOrganization(#organizationId)")
+    public List<ClassroomModel> joinClassroomByCode(@Argument String classroomCode, @Argument String studentId, @Argument String organizationId) {
+        return classroomMutationResolver.joinClassroomByCode(classroomCode, studentId, organizationId);
+    }
 
 }

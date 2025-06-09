@@ -16,4 +16,7 @@ public interface ClassroomRepository extends JpaRepository<ClassroomModel, Strin
     @Query(value = "SELECT * FROM classroom cr where :studentId = ANY(cr.student_ids)", nativeQuery = true)
     Optional<List<ClassroomModel>> findClassroomByStudentId(@Param("studentId") String studentId);
 
+    // @Query(value = "SELECT * FROM classroom cr WHERE cr.classroom_code =
+    // :classroomCode", nativeQuery = true)
+    Optional<ClassroomModel> findByClassroomCodeAndOrganizationId(String classroomCode, String organizationId);
 }

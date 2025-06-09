@@ -5,15 +5,22 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
+import java.time.Instant;
 
 import com.learning_platform.utils.EncodeInformation;
 
-public class ClassroomInvitation {
+public class ClassroomUtils {
 
-    private ClassroomInvitation() {
+    private ClassroomUtils() {
     }
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
+
+
+    public static String generateClassroomCode(String organizationId) {
+        return organizationId.charAt(0) + "-" + Instant.now().getEpochSecond();
+    }   
+ 
 
     public static String generateInviteLink(String classroomId, String expiry) {
         Map<String, String> map = new HashMap<>();

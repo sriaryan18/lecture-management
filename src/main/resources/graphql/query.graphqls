@@ -25,6 +25,7 @@ type Mutation {
     description: String!
     classroomName: String!
     instructorIds: [String]
+    organizationId: String
   ): Classroom
   addStudentsInClassRoom(studentIds: [String]!, classroomId: String!): Classroom
   addLectureInClassRoom(lectureId: String!, classroomId: String!): Classroom
@@ -49,4 +50,6 @@ type Mutation {
   ): StudentNotes!
 
   joinClassroom(inviteLink: String!, studentId: String!): [Classroom]
+
+  joinClassroomByCode(classroomCode: String!, studentId: String!, organizationId: String!): [Classroom]
 }
