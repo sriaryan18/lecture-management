@@ -1,3 +1,11 @@
+type User {
+  id: String!
+  username: String!
+  email: String!
+  firstName: String!
+  lastName: String!
+  role: String!
+}
 type Classroom {
   id: String!
   studentIds: [String]
@@ -11,6 +19,7 @@ type Classroom {
   inviteLinkExpiry: String
   organizationId: String
   classroomCode: String
+  students: [User]
 }
 type Attendance {
   date: String

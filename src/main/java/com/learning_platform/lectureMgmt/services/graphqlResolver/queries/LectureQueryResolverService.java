@@ -1,6 +1,5 @@
 package com.learning_platform.lectureMgmt.services.graphqlResolver.queries;
 
-
 import com.learning_platform.lectureMgmt.models.LectureModel;
 import com.learning_platform.lectureMgmt.repos.LectureRepository;
 import org.springframework.stereotype.Component;
@@ -9,7 +8,6 @@ import graphql.kickstart.tools.GraphQLQueryResolver;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 
 @Component
 public class LectureQueryResolverService implements GraphQLQueryResolver {
@@ -24,14 +22,13 @@ public class LectureQueryResolverService implements GraphQLQueryResolver {
         return lectureRepository.findById(id).orElse(null);
     }
 
-    public List<LectureModel> listLectures(){
+    public List<LectureModel> listLectures() {
 
         return lectureRepository.findAll();
     }
 
-
-    public List<LectureModel> getLecturesByTopic(String topic){
-        List<LectureModel> lectureModels =  lectureRepository.findByTopic(topic);
+    public List<LectureModel> getLecturesByTopic(String topic) {
+        List<LectureModel> lectureModels = lectureRepository.findByTopic(topic);
         return lectureModels;
     }
 

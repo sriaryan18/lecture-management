@@ -1,4 +1,3 @@
-
 spring:
   application:
     name: lecture_management_service
@@ -8,10 +7,10 @@ spring:
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
-  security:
-    user:
-      name: test
-      password: test
+  # security:
+  #   user:
+  #     name: test
+  #     password: test
 
   graphql:
     graphiql:
@@ -29,15 +28,14 @@ logging:
 api:
   services:
     auth:
-      baseUrl: 'http://localhost:8081'
+      baseUrl: "http://localhost:8081"
       endpoints:
         verifyToken:
-          endPointPath: '/auth/api/v1/verifyToken'
-          methodType: 'GET'
+          endPointPath: "/auth/api/v1/verifyToken"
+          methodType: "GET"
 jwt:
   expiration: 3600
   secret: "GibVa0MF2Wg29IVvY+kRFDf3xG6GVog9V5UocoUab6s="
-
 
 encryption-key: "e0ec288d28ef0b99d9df6bb51abe59fca34d276d8f9f170e3853c3db216ff085f"
 
@@ -48,5 +46,11 @@ common-utils:
       - "/graphql"
       - "/graphiql"
       - "/actuator/**"
-
-
+grpc:
+  server:
+    port: 9091
+    enable-reflection: true
+  client:
+    userService:
+      address: "static://localhost:9090"
+      negotiation-type: plaintext
