@@ -5,7 +5,7 @@ type InviteLink {
 
 type Query {
   getAllClassrooms: [Classroom]
-  getClassroomById(classroomId: ID): Classroom
+  getClassroomById(classroomId: String!): Classroom
   getClassroomsByInstructorId(instructorID: String): [Classroom]
   getClassroomsByStudentIds(studentId: String!): [Classroom]
   getAttendance(minDate: String!, maxDate: String): [Attendance]

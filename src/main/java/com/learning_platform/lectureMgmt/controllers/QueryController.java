@@ -51,6 +51,7 @@ public class QueryController {
 
     @QueryMapping
     public ClassroomModel getClassroomById(@Argument String classroomId) {
+
         return classroomQueryResolver.getClassroomById(classroomId);
     }
 
@@ -60,13 +61,13 @@ public class QueryController {
     }
 
     @QueryMapping
-    @PreAuthorize("@auth.isSelf(#studentId)")
+    // @PreAuthorize("@auth.isSelf(#studentId)")
     public List<ClassroomModel> getClassroomsByStudentIds(@Argument String studentId) {
         return classroomQueryResolver.getClassroomsByStudentIds(studentId);
     }
 
     @QueryMapping
-    @PreAuthorize("@auth.isSelf(#studentId)")
+    // @PreAuthorize("@auth.isSelf(#studentId)")
     public StudentNotesModel getStudentNotes(@Argument String lectureId, @Argument String studentId, @Argument String classroomId) {
         return studentNotesQueryResolver.getStudentNotes(lectureId, studentId, classroomId);
     }

@@ -18,7 +18,7 @@ public class AuthServiceGrpcClient {
 
     public GetUsersInfoReply getUsersInfo(List<String> userIds) {
         GetUsersInfoRequest request = GetUsersInfoRequest.newBuilder()
-                .addAllUserIds(List.of("7f91cfbd-649a-4e64-afd3-16cfe58b1761"))
+                .addAllUserIds(userIds)
                 .build();
         return getUsersInfoBlockingStub.getUsersInfo(request);
     }
