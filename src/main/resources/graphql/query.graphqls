@@ -16,7 +16,7 @@ type Query {
   getStudentNotes(
     lectureId: String!
     studentId: String!
-    classroomId: String!  
+    classroomId: String!
   ): StudentNotes
   getInviteLink(classroomId: String!): InviteLink
 }
@@ -51,5 +51,16 @@ type Mutation {
 
   joinClassroom(inviteLink: String!, studentId: String!): [Classroom]
 
-  joinClassroomByCode(classroomCode: String!, studentId: String!, organizationId: String!): [Classroom]
+  joinClassroomByCode(
+    classroomCode: String!
+    studentId: String!
+    organizationId: String!
+  ): [Classroom]
+
+  addOrUpdateNotes(
+    classroomId: String!
+    lectureId: String!
+    instructorId: String!
+    notes: String!
+  ): Lecture!
 }

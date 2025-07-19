@@ -112,8 +112,16 @@ public class MutationController {
 
     @MutationMapping
     @PreAuthorize("@auth.isSameOrganization(#organizationId)")
-    public List<ClassroomModel> joinClassroomByCode(@Argument String classroomCode, @Argument String studentId, @Argument String organizationId) {
+    public List<ClassroomModel> joinClassroomByCode(@Argument String classroomCode, @Argument String studentId,
+            @Argument String organizationId) {
         return classroomMutationResolver.joinClassroomByCode(classroomCode, studentId, organizationId);
+    }
+
+    @MutationMapping
+    // @PreAuthorize("@auth.isSelf(#instructorId)")
+    public LectureModel addOrUpdateNotes(@Argument String classroomId, @Argument String lectureId,
+            @Argument String instructorId, @Argument String notes) {
+        return lectureMutationResolverService.addOrUpdateNotes(classroomId, lectureId, instructorId, notes);
     }
 
 }

@@ -1,13 +1,16 @@
 package com.learning_platform.lectureMgmt.services.graphqlResolver.mutations;
 
+import com.learning_platform.lectureMgmt.dtos.NotesCreatedDto;
 import com.learning_platform.lectureMgmt.models.LectureModel;
 import com.learning_platform.lectureMgmt.exceptions.ResourceNotFoundException;
+import com.learning_platform.lectureMgmt.exceptions.UnauthorizedException;
 import com.learning_platform.lectureMgmt.models.ClassroomModel;
 import com.learning_platform.lectureMgmt.models.StudentNotesModel;
 import com.learning_platform.lectureMgmt.repos.ClassroomRepository;
 import com.learning_platform.lectureMgmt.repos.LectureRepository;
 import com.learning_platform.lectureMgmt.repos.StudentNotesRepository;
 import com.learning_platform.lectureMgmt.services.graphqlResolver.queries.LectureQueryResolverService;
+import com.learning_platform.lectureMgmt.services.kafka.KafkaProducer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,6 +38,9 @@ public class LectureMutationResolverService {
     @Autowired
     ClassroomRepository classroomRepository;
 
+    @Autowired
+    KafkaProducer kafkaProducer;
+
     public LectureModel createLecture(LectureModel lectureModel) {
         LectureModel savedLecture = lectureRepository.save(lectureModel);
         ClassroomModel classroomModel = classroomRepository.findById(lectureModel.getClassroomId())
@@ -55,6 +61,20 @@ public class LectureMutationResolverService {
         lectureModel.setTopics(uniqueTopics.stream().toList());
         return lectureRepository.save(lectureModel);
 
+    }
+
+    public LectureModel addOrUpdateNotes(String classroomId, String lectureId, String instructorId, String notes) {
+        LectureModel lectureModel = lectureQueryResolverService.getLectureById(lectureId);
+        // if (!lectureModel.getInstructorId().equals(instructorId)) {
+        //     throw new UnauthorizedException("You are not authorized to update this lecture");
+        // }
+        lectureModel.setNotes(notes);
+        kafkaProducer.sendMessage("notes.created", NotesCreatedDto.builder()
+                .lectureId(lectureId)
+                .content(notes)
+                .instructorId(instructorId)
+                .build());
+        return lectureRepository.save(lectureModel);
     }
 
 }
